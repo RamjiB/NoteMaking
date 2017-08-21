@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/notesappicon"
-        android:label="Notes"
+        android:label="NoteS"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
