@@ -56,7 +56,7 @@ public class notesEditor extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                
+
 
             }
         });
