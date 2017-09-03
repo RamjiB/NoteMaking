@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/add_note" android:icon="@android:color/darker_gray" android:title="Add Note"></item>
+    <!--<item-->
+        <!--android:id="@+id/bold"-->
+        <!--android:icon="@drawable/bold"-->
+        <!--android:title="bold"-->
+        <!--app:showAsAction="always" />-->
+    <!--<item-->
+        <!--android:id="@+id/italic"-->
+        <!--android:icon="@drawable/italic"-->
+        <!--android:title="italic"-->
+        <!--app:showAsAction="always" />-->
+    <!--<item-->
+        <!--android:id="@+id/underline"-->
+        <!--android:icon="@drawable/underline"-->
+        <!--android:title="underline"-->
+        <!--app:showAsAction="always" />-->
 
 </menu>

@@ -35,28 +35,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.notes_menu,menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        if (item.getItemId() == R.id.add_note){
-
-            Intent indent = new Intent(getApplicationContext(),notesEditor.class);
-            startActivity(indent);
-            return true;
-        }
-
-        return false;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
