@@ -16,7 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".notesEditor"></activity>
+        <activity android:name=".notesEditor" />
+
+        <!-- Register the TaskContentProvider -->
+        <!-- Set name,authorities and exported attributes -->
+        <!-- exported = false limits access to this ContentProvider to only this app -->
+        <provider
+            android:authorities="com.example.android.notes"
+            android:name="com.example.android.notes.data.TaskContentProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

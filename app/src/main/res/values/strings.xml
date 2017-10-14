@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">notes</string>
+
+    //title name
+    <string name="title">Notes</string>
+
 </resources>
