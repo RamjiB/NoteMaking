@@ -27,6 +27,12 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+
         <EditText
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -39,17 +45,8 @@
             android:inputType="text|textMultiLine|textImeMultiLine"
             android:padding="5dp"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/clear"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:src="@drawable/ic_clear"/>-->
 
 </RelativeLayout>

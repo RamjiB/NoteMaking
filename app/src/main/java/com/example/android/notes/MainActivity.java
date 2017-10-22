@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.notes.data.NotesContract;
 
@@ -33,11 +34,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import static android.R.attr.data;
+import static android.R.attr.id;
 import static com.example.android.notes.R.drawable.notes;
 
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Cursor>{
+        implements LoaderManager.LoaderCallbacks<Cursor>,NotesListAdapter.ListItemClickListener{
 
     private static final String TAG = "MainActivity";
     private static final int TASK_LOADER_ID = 0;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG,"oncreate");
 
         mNotesList = (RecyclerView) findViewById(R.id.rv_list_notes);
         newNote = (FloatingActionButton) findViewById(R.id.addicon);
@@ -69,14 +73,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, notesEditor.class);
+                intent.putExtra("id",0);
                 startActivity(intent);
 
             }
         });
 
         //onClick notes List item
-
-
 
         /*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
@@ -106,6 +109,7 @@ public class MainActivity extends AppCompatActivity
                 //Delete a single row of data using a ContentResolver
                 getContentResolver().delete(uri, null, null);
                 Log.d(TAG,"item deleted");
+                Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
 
                 //Restart the loader to re-query for all tasks after a deletion
                 getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
@@ -117,7 +121,6 @@ public class MainActivity extends AppCompatActivity
          created, otherwise the last created loader is re-used.
          */
         getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
-
     }
 
     /**
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume(){
         super.onResume();
+        Log.d(TAG,"onResume");
 
         // re-queries for all tasks
         getSupportLoaderManager().restartLoader(TASK_LOADER_ID,null,this);
@@ -144,8 +148,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG,"onCreateLoader");
 
         return new AsyncTaskLoader<Cursor>(this) {
+
+
 
             // Initialize a Cursor, this will hold all the task data
             Cursor mTaskData = null;
@@ -199,6 +206,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
+        Log.d(TAG,"onLoadFinished");
+
         // Update the data that the adapter uses to create ViewHolders
         mAdapter.swapCursor(data);
     }
@@ -212,13 +221,18 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d(TAG,"onLoaderReset");
 
         mAdapter.swapCursor(null);
     }
 
-//    @Override
-//    public void onListItemClick(int clickednote) {
-//        Intent intent = new Intent(MainActivity.this, notesEditor.class);
-//        startActivity(intent);
-//    }
+    @Override
+    public void onListItemClick(String title,String content,int id) {
+        Intent intent = new Intent(MainActivity.this, notesEditor.class);
+        intent.putExtra("title",title);
+        intent.putExtra("content",content);
+        intent.putExtra("id",id);
+        startActivity(intent);
+    }
 }
+

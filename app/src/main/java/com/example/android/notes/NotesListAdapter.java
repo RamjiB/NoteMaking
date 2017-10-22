@@ -19,23 +19,26 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
 
     private Cursor mCursor;
     private Context mContext;
+    private int idIndex;
+    private int titleIndex;
+    private int contentIndex;
 
-//    private ListItemClickListener mOnClickListener;
+    private ListItemClickListener mOnClickListener;
 
     /**
      * the interface that receives on click messages
      */
 
-//   public interface ListItemClickListener{
-//       void onListItemClick(int clickednote);
-//   }
+   public interface ListItemClickListener{
+      void onListItemClick(String title,String content,int noteID);
+   }
 
-    public NotesListAdapter(Context mContext){
-        this.mContext =  mContext;
+    public NotesListAdapter(ListItemClickListener clickListener){
+        mOnClickListener = clickListener;
     }
     @Override
     public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        mContext = parent.getContext();
         View view = LayoutInflater.from(mContext).inflate(R.layout.notes_list,parent,false);
         NotesViewHolder viewHolder = new NotesViewHolder(view);
 
@@ -49,13 +52,15 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
 
         //Indices for the id and Title
 
-        int idIndex = mCursor.getColumnIndex(NotesContract.TaskEntry._ID);
-        int titleIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_TITLE);
+        idIndex = mCursor.getColumnIndex(NotesContract.TaskEntry._ID);
+        titleIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_TITLE);
+        contentIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_DESCRIPTION);
 
         mCursor.moveToPosition(position);
 
         //Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
+        Log.d(TAG,"itemID: " + id);
         String title = mCursor.getString(titleIndex);
 
         //set values
@@ -95,7 +100,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     }
 
     // Inner class for creating ViewHolders
-    class NotesViewHolder extends RecyclerView.ViewHolder{
+    class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView notesTile;
 
@@ -103,15 +108,22 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
             super(itemView);
 
             notesTile = (TextView) itemView.findViewById(R.id.tv_note_title);
-//            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 
-//        @Override
-//        public void onClick(View v) {
-//
-//            int adapterPosition = getAdapterPosition();
-//            mOnClickListener.onListItemClick(adapterPosition);
-//        }
+        @Override
+        public void onClick(View v) {
+
+            int adapterPosition = getAdapterPosition();
+            mCursor.moveToPosition(adapterPosition);
+
+            //Determine the values of the wanted data
+            final int id = mCursor.getInt(idIndex);
+            String title = mCursor.getString(titleIndex);
+            String content = mCursor.getString(contentIndex);
+
+            mOnClickListener.onListItemClick(title,content,id);
+        }
     }
 }
