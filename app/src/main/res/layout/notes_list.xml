@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@drawable/background_border">
 
     <TextView
         android:id="@+id/tv_note_title"
@@ -14,9 +15,5 @@
         android:textSize="24sp"
         android:padding="3dp"
         tools:text="Note 1"/>
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@android:color/darker_gray" />
 
 </LinearLayout>

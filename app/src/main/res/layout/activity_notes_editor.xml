@@ -6,47 +6,65 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.notes.notesEditor">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:layout_margin="20dp">
 
-        <EditText
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@android:color/transparent"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="Title"
-            android:inputType="textImeMultiLine"
-            android:padding="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/title_background">
 
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:backgroundTint="@android:color/transparent"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="content"
-            android:inputType="text|textMultiLine|textImeMultiLine"
-            android:padding="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@android:color/white"
+                    android:backgroundTint="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="@string/title_hint"
+                    android:inputType="textImeMultiLine"
+                    android:padding="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_border"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="@string/content_hint"
+                    android:inputType="text|textMultiLine|textImeMultiLine"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 </RelativeLayout>

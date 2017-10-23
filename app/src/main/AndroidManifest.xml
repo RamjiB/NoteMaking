@@ -22,8 +22,8 @@
         <!-- Set name,authorities and exported attributes -->
         <!-- exported = false limits access to this ContentProvider to only this app -->
         <provider
+            android:name=".data.TaskContentProvider"
             android:authorities="com.example.android.notes"
-            android:name="com.example.android.notes.data.TaskContentProvider"
             android:exported="false" />
 
     </application>

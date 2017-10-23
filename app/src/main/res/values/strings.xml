@@ -3,5 +3,7 @@
 
     //title name
     <string name="title">Notes</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">content</string>
 
 </resources>

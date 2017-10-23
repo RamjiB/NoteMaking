@@ -8,31 +8,39 @@
 
     <!-- Title Bar -->
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/titleBar">
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
 
-        <include layout="@layout/app_bar" />
+    </android.support.v7.widget.Toolbar>
 
-    </RelativeLayout>
 
     <!-- List item using recycler view -->
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/titleBar">
+        android:layout_below="@id/titleBar"
+        android:layout_margin="5dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list_notes"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
 
 
-    </FrameLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <!-- Add icon -->
 
