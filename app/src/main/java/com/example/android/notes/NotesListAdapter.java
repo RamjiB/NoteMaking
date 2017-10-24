@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.android.notes.data.NotesContract;
 
-import static android.os.Build.VERSION_CODES.N;
-
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NotesViewHolder> {
 
     private static final String TAG = "NotesListAdapter";

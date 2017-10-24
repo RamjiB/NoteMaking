@@ -5,8 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
-import static android.os.FileObserver.CREATE;
+import com.example.android.notes.data.NotesContract;
 
 public class NotesDbHelper extends SQLiteOpenHelper{
     private static final String TAG = "NotesDbHelper";

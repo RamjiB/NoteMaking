@@ -8,13 +8,10 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.UnsupportedSchemeException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static android.R.attr.breadCrumbShortTitle;
-import static android.R.attr.id;
 import static com.example.android.notes.data.NotesContract.TaskEntry.TABLE_NAME;
 
 public class TaskContentProvider extends ContentProvider {
