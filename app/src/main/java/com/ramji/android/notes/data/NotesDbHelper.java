@@ -1,11 +1,9 @@
-package com.example.android.notes.data;
+package com.ramji.android.notes.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.example.android.notes.data.NotesContract;
 
 public class NotesDbHelper extends SQLiteOpenHelper{
     private static final String TAG = "NotesDbHelper";

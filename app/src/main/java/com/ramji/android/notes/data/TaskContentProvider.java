@@ -1,4 +1,4 @@
-package com.example.android.notes.data;
+package com.ramji.android.notes.data;
 
 
 import android.content.ContentProvider;
@@ -12,7 +12,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.example.android.notes.data.NotesContract.TaskEntry.TABLE_NAME;
+import static com.ramji.android.notes.data.NotesContract.TaskEntry.TABLE_NAME;
 
 public class TaskContentProvider extends ContentProvider {
 

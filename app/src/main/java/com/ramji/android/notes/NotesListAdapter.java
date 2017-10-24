@@ -1,4 +1,4 @@
-package com.example.android.notes;
+package com.ramji.android.notes;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.notes.data.NotesContract;
+import com.ramji.android.notes.data.NotesContract;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NotesViewHolder> {
 

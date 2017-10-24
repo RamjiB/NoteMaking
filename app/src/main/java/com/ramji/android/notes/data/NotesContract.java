@@ -1,4 +1,4 @@
-package com.example.android.notes.data;
+package com.ramji.android.notes.data;
 
 
 import android.net.Uri;
@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 public class NotesContract {
 
     //The authority, which is how your code knows which Content Provider to access
-    public static final String AUTHORITY = "com.example.android.notes";
+    public static final String AUTHORITY = "com.ramji.android.notes";
 
     //public static final Uri = "content://" + <authority>
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);

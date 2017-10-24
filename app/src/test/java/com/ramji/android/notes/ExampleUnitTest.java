@@ -1,4 +1,4 @@
-package com.example.android.notes;
+package com.ramji.android.notes;
 
 import org.junit.Test;
 

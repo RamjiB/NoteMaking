@@ -1,4 +1,4 @@
-package com.example.android.notes;
+package com.ramji.android.notes;
 
 import android.content.ContentValues;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.notes.data.NotesContract;
+import com.ramji.android.notes.data.NotesContract;
 
 public class notesEditor extends AppCompatActivity {
 

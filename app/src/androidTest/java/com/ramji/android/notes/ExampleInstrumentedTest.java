@@ -1,4 +1,4 @@
-package com.example.android.notes;
+package com.ramji.android.notes;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
