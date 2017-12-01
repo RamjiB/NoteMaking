@@ -2,6 +2,9 @@ package com.ramji.android.notes;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,9 @@ import android.widget.TextView;
 
 import com.ramji.android.notes.data.NotesContract;
 
+import java.util.Date;
+
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NotesViewHolder> {
 
     private static final String TAG = "NotesListAdapter";
@@ -18,8 +24,16 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     private Cursor mCursor;
     private Context mContext;
     private int idIndex;
+    private int timeIndex;
     private int titleIndex;
     private int contentIndex;
+
+    private static SimpleDateFormat sDateFormat = new SimpleDateFormat("dd MMM");
+
+    private static final long SECOND_MILLIS = 1000;
+    private static final long MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    private static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final long DAY_MILLIS = 24 * HOUR_MILLIS;
 
     private ListItemClickListener mOnClickListener;
 
@@ -51,6 +65,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
         //Indices for the id and Title
 
         idIndex = mCursor.getColumnIndex(NotesContract.TaskEntry._ID);
+        timeIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_CREATED_AT);
         titleIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_TITLE);
         contentIndex = mCursor.getColumnIndex(NotesContract.TaskEntry.COLUMN_DESCRIPTION);
 
@@ -61,10 +76,37 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
         Log.d(TAG,"itemID: " + id);
         String title = mCursor.getString(titleIndex);
 
+        //get time
+        Long createdTime = mCursor.getLong(timeIndex);
+        String date = "";
+        long now = System.currentTimeMillis();
+
+        // Change how the date is displayed depending on whether it was written in the last minute,
+        // the hour, etc.
+        if (now - createdTime < (DAY_MILLIS)) {
+            if (now - createdTime < (HOUR_MILLIS)) {
+                if (now - createdTime < (MINUTE_MILLIS)){
+                    long seconds = Math.round((now - createdTime) / SECOND_MILLIS);
+                    date = String.valueOf(seconds) + "s";
+                }else {
+                    long minutes = Math.round((now - createdTime) / MINUTE_MILLIS);
+                    date = String.valueOf(minutes) + "m";
+                }
+            } else {
+                long minutes = Math.round((now - createdTime) / HOUR_MILLIS);
+                date = String.valueOf(minutes) + "h";
+            }
+        } else {
+            Date dateDate = new Date(createdTime);
+            date = sDateFormat.format(dateDate);
+        }
+        // Add a dot to the date string
+        date = "\u2022 " + date;
+
         //set values
         holder.itemView.setTag(id);
-        holder.notesTile.setText(title);
-
+        holder.notesTitle.setText(title);
+        holder.dateText.setText(date);
 
     }
 
@@ -100,12 +142,14 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     // Inner class for creating ViewHolders
     class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView notesTile;
+        TextView notesTitle;
+        TextView dateText;
 
         public NotesViewHolder(View itemView) {
             super(itemView);
 
-            notesTile = (TextView) itemView.findViewById(R.id.tv_note_title);
+            notesTitle = (TextView) itemView.findViewById(R.id.tv_note_title);
+            dateText = (TextView) itemView.findViewById(R.id.date_text_view);
             itemView.setOnClickListener(this);
 
         }

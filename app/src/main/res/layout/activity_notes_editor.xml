@@ -1,70 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     tools:context=".notesEditor">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:background="@drawable/title_background">
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/title"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/title_background">
+                android:layout_height="wrap_content"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/transparent"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/title_hint"
+                android:inputType="textImeMultiLine"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/title"
-                    android:layout_margin="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@android:color/white"
-                    android:backgroundTint="@android:color/transparent"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="@string/title_hint"
-                    android:inputType="textImeMultiLine"
-                    android:padding="5dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_border"
+            android:layout_marginTop="5dp">
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_border"
-                android:layout_marginTop="5dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@android:color/transparent"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/content_hint"
+                android:inputType="text|textMultiLine|textImeMultiLine"
+                android:padding="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="@string/content_hint"
-                    android:inputType="text|textMultiLine|textImeMultiLine"
-                    android:padding="5dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 
-
-</RelativeLayout>
+</ScrollView>

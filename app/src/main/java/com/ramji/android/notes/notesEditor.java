@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import com.ramji.android.notes.data.NotesContract;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class notesEditor extends AppCompatActivity {
 
     private static final String TAG = "notesEditor";
@@ -65,6 +68,9 @@ public class notesEditor extends AppCompatActivity {
 
         String inputTitle = titleField.getText().toString();
         String inputDescription = descriptionField.getText().toString();
+        Long createdTime = System.currentTimeMillis();
+        Log.d(TAG,"Time in millis: "+ createdTime);
+
 
         if (id != 0){
             Log.d(TAG,"id: " + id);
@@ -78,6 +84,7 @@ public class notesEditor extends AppCompatActivity {
             Log.d(TAG,"inputDescription: "+inputDescription);
 
             contentValues = new ContentValues();
+            contentValues.put(NotesContract.TaskEntry.COLUMN_CREATED_AT,createdTime);
             contentValues.put(NotesContract.TaskEntry.COLUMN_TITLE,inputTitle);
             contentValues.put(NotesContract.TaskEntry.COLUMN_DESCRIPTION,inputDescription);
 
@@ -85,14 +92,17 @@ public class notesEditor extends AppCompatActivity {
                 Log.d(TAG,"title is null");
                 //Delete a single row of data using a ContentResolver
                 getContentResolver().delete(uri, null, null);
+                NotesUpdatedWidget.startActionUpdateNotesWidgets(this);
             }else{
                 //Update content values via a  content resolver
                 getContentResolver().update(uri,contentValues,null,null);
+                NotesUpdatedWidget.startActionUpdateNotesWidgets(this);
                 Log.d(TAG,"item updated");
                 Toast.makeText(notesEditor.this, "Note updated", Toast.LENGTH_SHORT).show();
             }
         }else{
             contentValues = new ContentValues();
+            contentValues.put(NotesContract.TaskEntry.COLUMN_CREATED_AT,createdTime);
             contentValues.put(NotesContract.TaskEntry.COLUMN_TITLE,inputTitle);
             contentValues.put(NotesContract.TaskEntry.COLUMN_DESCRIPTION,inputDescription);
 
@@ -104,8 +114,10 @@ public class notesEditor extends AppCompatActivity {
                     Log.d(TAG,"title is null");
                     //Delete a single row of data using a ContentResolver
                     getContentResolver().delete(uri, null, null);
+                    NotesUpdatedWidget.startActionUpdateNotesWidgets(this);
                 }else{
                     Toast.makeText(getBaseContext(), "Added a new note " + inputTitle , Toast.LENGTH_SHORT).show();
+                    NotesUpdatedWidget.startActionUpdateNotesWidgets(this);
                 }
             }
         }

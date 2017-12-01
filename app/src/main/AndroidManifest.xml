@@ -9,23 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ramji.android.notes.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ramji.android.notes.notesEditor" />
+        <activity android:name=".notesEditor" />
 
         <!-- Register the TaskContentProvider -->
         <!-- Set name,authorities and exported attributes -->
         <!-- exported = false limits access to this ContentProvider to only this app -->
         <provider
-            android:name="com.ramji.android.notes.data.TaskContentProvider"
+            android:name=".data.TaskContentProvider"
             android:authorities="com.ramji.android.notes"
             android:exported="false" />
 
+        <receiver android:name="com.ramji.example.android.notes.NotesWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/notes_widget_provider_info" />
+        </receiver>
+        <service android:name=".NotesUpdatedWidget" />
     </application>
 
 </manifest>

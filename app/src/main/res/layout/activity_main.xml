@@ -25,20 +25,16 @@
         android:layout_below="@id/titleBar"
         android:layout_margin="5dp">
 
-        <FrameLayout
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:padding="5dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_list_notes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
 
-        </FrameLayout>
 
     </RelativeLayout>
 
@@ -46,12 +42,12 @@
 
     <android.support.design.widget.FloatingActionButton
 
-        android:id="@+id/addicon"
+        android:id="@+id/addIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@android:color/background_light"
+        android:background="@color/colorPrimary"
         app:srcCompat="@drawable/ic_add_new"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />

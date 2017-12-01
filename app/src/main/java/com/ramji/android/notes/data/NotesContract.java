@@ -26,6 +26,7 @@ public class NotesContract {
         //Table Columns
         public static final String COLUMN_TITLE = "Title";
         public static final String COLUMN_DESCRIPTION = "Description";
+        public static final String COLUMN_CREATED_AT = "Created_at";
 
     }
 }

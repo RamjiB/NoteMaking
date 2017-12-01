@@ -13,7 +13,7 @@ public class NotesDbHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "notesDB.db";
 
     //Change in database schema, must change database version
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
 
     //Constructor
@@ -25,8 +25,9 @@ public class NotesDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db){
         //Create Tasks table
-        final String CREATE_TABLE = "CREATE TABLE "          + NotesContract.TaskEntry.TABLE_NAME + " (" +
+        final String CREATE_TABLE = "CREATE TABLE "         + NotesContract.TaskEntry.TABLE_NAME + " (" +
                 NotesContract.TaskEntry._ID                 + " INTEGER PRIMARY KEY, " +
+                NotesContract.TaskEntry.COLUMN_CREATED_AT   + " TEXT NOT NULL, " +
                 NotesContract.TaskEntry.COLUMN_TITLE        + " TEXT NOT NULL, " +
                 NotesContract.TaskEntry.COLUMN_DESCRIPTION  + " TEXT NOT NULL);";
 

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import static com.ramji.android.notes.data.NotesContract.TaskEntry.COLUMN_CREATED_AT;
 import static com.ramji.android.notes.data.NotesContract.TaskEntry.TABLE_NAME;
 
 public class TaskContentProvider extends ContentProvider {
@@ -67,7 +68,7 @@ public class TaskContentProvider extends ContentProvider {
                         selectionArgs,
                         null,
                         null,
-                        sortOrder);
+                        COLUMN_CREATED_AT + " DESC");
                 break;
             // Default exception
             default:
@@ -157,7 +158,8 @@ public class TaskContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection,
+                      @Nullable String[] selectionArgs) {
         // Get access to the database and write URI matching code to recognize a single item
         final SQLiteDatabase db = mNoteDbHelper.getWritableDatabase();
 

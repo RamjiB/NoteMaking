@@ -1,12 +1,19 @@
 package com.ramji.android.notes;
 
+import android.app.IntentService;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +25,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ramji.android.notes.data.NotesContract;
+import com.ramji.example.android.notes.NotesWidgetProvider;
+
+import static com.ramji.android.notes.NotesUpdatedWidget.ACTION_UPDATE_NOTES_WIDGETS;
 
 
 public class MainActivity extends AppCompatActivity
@@ -31,12 +41,11 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton newNote;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         //Setting toolbar
 
@@ -44,14 +53,14 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(getString(R.string.title));
 
         mNotesList = (RecyclerView) findViewById(R.id.rv_list_notes);
-        newNote = (FloatingActionButton) findViewById(R.id.addicon);
+        newNote = (FloatingActionButton) findViewById(R.id.addIcon);
 
         //Layout manager for aligning items in recycler view
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mNotesList.setLayoutManager(layoutManager);
 
-        // Adpater responsible for displaying each item in list
+        // Adapter responsible for displaying each item in list
         mAdapter = new NotesListAdapter(this);
         mNotesList.setAdapter(mAdapter);
 
@@ -80,26 +89,50 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                 Log.d(TAG,"swiped");
 
-                // Retrieve the id of the task to delete
-                int id = (int) viewHolder.itemView.getTag();
-                Log.d(TAG,"Tag id"+ id);
+                /**
+                 * Confirmation dialog action for deleting the swiped data
+                 */
 
-                // Build appropriate uri with String row id appended
-                String stringId = Integer.toString(id);
-                Uri uri = NotesContract.TaskEntry.CONTENT_URI;
-                uri = uri.buildUpon().appendPath(stringId).build();
-                Log.d(TAG,"uri"+ uri);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Delete Note")
+                        .setMessage("Are you sure. Want to delete the swiped note?")
+                        .setIcon(R.drawable.ic_action_delete)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Retrieve the id of the task to delete
+                                int id = (int) viewHolder.itemView.getTag();
+                                Log.d(TAG,"Tag id"+ id);
 
-                //Delete a single row of data using a ContentResolver
-                getContentResolver().delete(uri, null, null);
-                Log.d(TAG,"item deleted");
-                Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                                // Build appropriate uri with String row id appended
+                                String stringId = Integer.toString(id);
+                                Uri uri = NotesContract.TaskEntry.CONTENT_URI;
+                                uri = uri.buildUpon().appendPath(stringId).build();
+                                Log.d(TAG,"uri"+ uri);
 
-                //Restart the loader to re-query for all tasks after a deletion
-                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
+                                //Delete a single row of data using a ContentResolver
+                                getContentResolver().delete(uri, null, null);
+                                Log.d(TAG,"item deleted");
+                                Toast.makeText(MainActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+
+                                //Restart the loader to re-query for all tasks after a deletion
+                                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
+
+                                NotesUpdatedWidget.startActionUpdateNotesWidgets(MainActivity.this);
+
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //Restart the loader to re-query for all tasks after a deletion
+                        getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, MainActivity.this);
+
+                    }
+                }).show();
             }
         }).attachToRecyclerView(mNotesList);
 
@@ -138,8 +171,6 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG,"onCreateLoader");
 
         return new AsyncTaskLoader<Cursor>(this) {
-
-
 
             // Initialize a Cursor, this will hold all the task data
             Cursor mTaskData = null;
@@ -190,6 +221,7 @@ public class MainActivity extends AppCompatActivity
      * @param data The data generated by the Loader.
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
@@ -206,6 +238,7 @@ public class MainActivity extends AppCompatActivity
      *
      * @param loader The Loader that is being reset.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         Log.d(TAG,"onLoaderReset");
@@ -221,5 +254,6 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("id",id);
         startActivity(intent);
     }
+
 }
 
